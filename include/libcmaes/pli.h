@@ -147,7 +147,22 @@ namespace libcmaes
     {
       return _max;
     }
-
+    template <class archive>
+    void serialize(archive &arch, const unsigned int v){
+        arch & _k;
+        arch & _samplesize;
+        arch & _fvaluem;
+        arch & _xm;
+        arch & _min;
+        arch & _max;
+        arch & _errmin;
+        arch & _errmax;
+        arch & _minindex;
+        arch & _maxindex;
+        arch & _err;
+        arch & _fup;
+        arch & _delta;
+    }
     private:
     int _k = -1;
     int _samplesize = 0;

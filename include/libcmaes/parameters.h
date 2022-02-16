@@ -25,6 +25,8 @@
 #include <libcmaes/eo_matrix.h>
 #include <libcmaes/genopheno.h>
 #include <libcmaes/llogging.h>
+#include <boost/serialization/unordered_map.hpp>
+#include <libcmaes/eigen_boost_serialization.h>
 #include <string>
 #include <cmath>
 #include <limits>
@@ -553,6 +555,41 @@ namespace libcmaes
 	return _tpa;
       }
       
+      template <class archive>
+      void serialize(archive &arch, const unsigned int v)
+      {
+          arch & _dim;
+          arch & _lambda;
+          arch & _max_iter;
+          arch & _max_fevals;
+          arch & _quiet;
+          arch & _fplot;
+          arch & _full_fplot;
+          arch & _x0min;
+          arch & _x0max;
+          arch & _ftarget;
+          arch & _ftolerance;
+          arch & _xtol;
+          arch & _seed;
+          arch & _algo;
+          arch & _with_gradient;
+          arch & _with_edm;
+          arch & _fixed_p;
+          arch & _mt_feval;
+          arch & _max_hist;
+          arch & _maximize;
+          arch & _algos;
+          arch & _initial_fvalue;
+          arch & _uh;
+          arch & _rlambda;
+          arch & _epsuh;
+          arch & _thetauh;
+          arch & _csuh;
+          arch & _alphathuh;
+          arch & _tpa;
+          arch & _tpa_csigma;
+      }
+
     protected:
       int _dim; /**< function space dimensions. */
       int _lambda = -1; /**< number of offsprings. */

@@ -285,6 +285,41 @@ namespace libcmaes
        * @param d dsigma
        */
       void set_tpa_dsigma(const double &d) { _dsigma = d; }
+
+      friend class boost::serialization::access;
+      template <class archive>
+      void serialize(archive &arch, const unsigned int v)
+      {
+          arch & boost::serialization::base_object<Parameters<TGenoPheno>>(*this);
+          arch & _mu;
+          arch & _weights;
+          arch & _csigma;
+          arch & _c1;
+          arch & _cmu;
+          arch & _cc;
+          arch & _muw;
+          arch & _dsigma;
+          arch & _fact_ps;
+          arch & _fact_pc;
+          arch & _chi;
+          arch & _sigma_init;
+          arch & _nrestarts;
+          arch & _lazy_update;
+          arch & _lazy_value;
+          arch & _cm;
+          arch & _alphacov;
+          arch & _alphaminusold;
+          arch & _deltamaxsigma;
+          arch & _lambdamintarget;
+          arch & _alphaminusmin;
+          arch & _sep;
+          arch & _vd;
+          arch & _elitist;
+          arch & _initial_elitist;
+          arch & _initial_elitist_on_restart;
+
+      }
+
       
     private:
       int _mu; /**< number of candidate solutions used to update the distribution parameters. */

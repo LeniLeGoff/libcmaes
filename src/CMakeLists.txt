@@ -39,7 +39,8 @@ set (LIBCMAES_HEADERS
   ${header_path}/llogging.h
   ${header_path}/errstats.h
   ${header_path}/pli.h
-  ${header_path}/contour.h)
+  ${header_path}/contour.h
+  ${header_path}/eigen_boost_serialization.h)
 
 if (LIBCMAES_ENABLE_SURROG)
   list (APPEND LIBCMAES_SOURCES surrogatestrategy.cc)

@@ -57,31 +57,31 @@ namespace libcmaes
 							      const AskFunc &askf,
 							      const TellFunc &tellf)
   {
-    CMASolutions best_run;
-    for (int r=0;r<CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._nrestarts;r++)
+      CMASolutions best_run;
+      for (int r=0;r<CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._nrestarts;r++)
       {
-	LOG_IF(INFO,!(CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._quiet)) << "r: " << r << " / lambda=" << CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._lambda << std::endl;
-	CMAStrategy<TCovarianceUpdate,TGenoPheno>::optimize(evalf,askf,tellf);
-		
-	// capture best solution.
-	capture_best_solution(best_run);
-	
-	// reset parameters and solutions.
-	lambda_inc();
-	reset_search_state();
-	
-	// do not restart if max budget function calls is reached.
-	if (CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._max_fevals > 0
-	    && CMAStrategy<TCovarianceUpdate,TGenoPheno>::_nevals >= CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._max_fevals)
-	  {
-	    LOG_IF(INFO,!(CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._quiet)) << "IPOP restarts ended on max fevals=" << CMAStrategy<TCovarianceUpdate,TGenoPheno>::_nevals << ">=" << CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._max_fevals << std::endl;
-	    break;
-	  }
+          LOG_IF(INFO,!(CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._quiet)) << "r: " << r << " / lambda=" << CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._lambda << std::endl;
+          CMAStrategy<TCovarianceUpdate,TGenoPheno>::optimize(evalf,askf,tellf);
+
+          // capture best solution.
+          capture_best_solution(best_run);
+
+          // reset parameters and solutions.
+          lambda_inc();
+          reset_search_state();
+
+          // do not restart if max budget function calls is reached.
+          if (CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._max_fevals > 0
+                  && CMAStrategy<TCovarianceUpdate,TGenoPheno>::_nevals >= CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._max_fevals)
+          {
+              LOG_IF(INFO,!(CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._quiet)) << "IPOP restarts ended on max fevals=" << CMAStrategy<TCovarianceUpdate,TGenoPheno>::_nevals << ">=" << CMAStrategy<TCovarianceUpdate,TGenoPheno>::_parameters._max_fevals << std::endl;
+              break;
+          }
       }
-    CMAStrategy<TCovarianceUpdate,TGenoPheno>::_solutions = best_run;
-    if (CMAStrategy<TCovarianceUpdate,TGenoPheno>::_solutions._run_status >= 0)
-      return OPTI_SUCCESS;
-    return OPTI_ERR_TERMINATION; // exact termination code is in CMAStrategy<TCovarianceUpdate>::_solutions._run_status.
+      CMAStrategy<TCovarianceUpdate,TGenoPheno>::_solutions = best_run;
+      if (CMAStrategy<TCovarianceUpdate,TGenoPheno>::_solutions._run_status >= 0)
+          return OPTI_SUCCESS;
+      return OPTI_ERR_TERMINATION; // exact termination code is in CMAStrategy<TCovarianceUpdate>::_solutions._run_status.
   }
 
   template <class TCovarianceUpdate, class TGenoPheno>

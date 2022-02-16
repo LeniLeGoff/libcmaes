@@ -30,6 +30,7 @@
 #include <libcmaes/pli.h>
 #include <vector>
 #include <algorithm>
+#include "eigen_boost_serialization.hpp"
 
 namespace libcmaes
 {
@@ -482,6 +483,62 @@ namespace libcmaes
     std::ostream& print(std::ostream &out,
 			const int &verb_level=0,
 			const TGenoPheno &gp=TGenoPheno()) const;
+
+
+    template <class archive>
+    void serialize(archive &arch, const unsigned int v)
+    {
+        arch & _cov; /**< covariance matrix. */
+        arch & _csqinv; /** inverse root square of covariance matrix. */
+        arch & _sepcov;
+        arch & _sepcsqinv;
+        arch & _xmean; /**< distribution mean. */
+        arch & _psigma; /**< cumulation for sigma. */
+        arch & _pc; /**< cumulation for covariance. */
+        arch & _hsig; /**< 0 or 1. */
+        arch & _sigma; /**< step size. */
+        arch & _candidates; /**< current set of candidate solutions. */
+        arch & _best_candidates_hist; /**< history of best candidate solutions. */
+        arch & _max_hist; /**< max size of the history, keeps memory requirements fixed. */
+
+        arch & _max_eigenv; /**< max eigenvalue, for termination criteria. */
+        arch & _min_eigenv; /**< min eigenvalue, for termination criteria. */
+        arch & _leigenvalues; /**< last computed eigenvalues, for termination criteria. */
+        arch & _leigenvectors; /**< last computed eigenvectors, for termination criteria. */
+        arch & _niter; /**< number of iterations to reach this solution, for termination criteria. */
+        arch & _nevals; /**< number of function calls to reach the current solution. */
+        arch & _kcand;
+        arch & _k_best_candidates_hist; /**< k-th best candidate history, for termination criteria, k is kcand=1+floor(0.1+lambda/4). */
+        arch & _bfvalues; /**< best function values over the past 20 steps, for termination criteria. */
+        arch & _median_fvalues; /**< median function values of some steps, in the past, for termination criteria. */
+
+        arch & _eigeniter; /**< eigenvalues computation last step, lazy-update only. */
+        arch & _updated_eigen; /**< last update is not lazy. */
+
+        // status of the run.
+        arch & _run_status; /**< current status of the stochastic optimization (e.g. running, or stopped under termination criteria). */
+        arch & _elapsed_time; /**< final elapsed time of stochastic optimization. */
+        arch & _elapsed_last_iter; /**< time consumed during last iteration. */
+        arch & _pls; /**< profile likelihood for parameters it has been computed for. */
+        arch & _edm; /**< expected vertical distance to the minimum. */
+
+        arch & _best_seen_candidate; /**< best seen candidate along the run. */
+        arch & _best_seen_iter;
+        arch & _worst_seen_candidate;
+        //arch & _initial_candidate;
+
+        //arch & _v; /**< complementary vector for use in vdcma. */
+
+       // arch & _candidates_uh; /**< temporary set of candidates used by uncertainty handling scheme. */
+       // arch & _lambda_reev; /**< number of reevaluated solutions at current step. */
+       // arch & _suh; /**< uncertainty level computed by uncertainty handling procedure. */
+
+        //arch & _tpa_s;
+        //arch & _tpa_p1;
+        //arch & _tpa_p2;
+        //arch & _tpa_x1;
+        //arch & _tpa_x2;
+    }
 
   private:
     dMat _cov; /**< covariance matrix. */
