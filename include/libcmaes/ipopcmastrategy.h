@@ -35,6 +35,9 @@ namespace libcmaes
     class CMAES_EXPORT IPOPCMAStrategy : public CMAStrategy<TCovarianceUpdate, TGenoPheno>
   {
   public:
+
+        IPOPCMAStrategy(){}
+
     /**
      * \brief constructor.
      * @param func objective function to minimize

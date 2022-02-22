@@ -28,9 +28,9 @@
 #include <libcmaes/cmaparameters.h>
 #include <libcmaes/cmastopcriteria.h>
 #include <libcmaes/pli.h>
+#include <libcmaes/eigen_boost_serialization.h>
 #include <vector>
 #include <algorithm>
-#include "eigen_boost_serialization.hpp"
 
 namespace libcmaes
 {
@@ -497,14 +497,12 @@ namespace libcmaes
         arch & _pc; /**< cumulation for covariance. */
         arch & _hsig; /**< 0 or 1. */
         arch & _sigma; /**< step size. */
-        arch & _candidates; /**< current set of candidate solutions. */
-        arch & _best_candidates_hist; /**< history of best candidate solutions. */
-        arch & _max_hist; /**< max size of the history, keeps memory requirements fixed. */
-
-        arch & _max_eigenv; /**< max eigenvalue, for termination criteria. */
-        arch & _min_eigenv; /**< min eigenvalue, for termination criteria. */
-        arch & _leigenvalues; /**< last computed eigenvalues, for termination criteria. */
-        arch & _leigenvectors; /**< last computed eigenvectors, for termination criteria. */
+      //  arch & _candidates; /**< current set of candidate solutions. */
+       // arch & _best_candidates_hist; /**< history of best candidate solutions. */
+//        arch & _max_hist; /**< max size of the history, keeps memory requirements fixed. */
+//        arch & _min_eigenv; /**< min eigenvalue, for termination criteria. */
+//        arch & _leigenvalues; /**< last computed eigenvalues, for termination criteria. */
+//        arch & _leigenvectors; /**< last computed eigenvectors, for termination criteria. */
         arch & _niter; /**< number of iterations to reach this solution, for termination criteria. */
         arch & _nevals; /**< number of function calls to reach the current solution. */
         arch & _kcand;
@@ -522,9 +520,9 @@ namespace libcmaes
         arch & _pls; /**< profile likelihood for parameters it has been computed for. */
         arch & _edm; /**< expected vertical distance to the minimum. */
 
-        arch & _best_seen_candidate; /**< best seen candidate along the run. */
-        arch & _best_seen_iter;
-        arch & _worst_seen_candidate;
+//        arch & _best_seen_candidate; /**< best seen candidate along the run. */
+//        arch & _best_seen_iter;
+//        arch & _worst_seen_candidate;
         //arch & _initial_candidate;
 
         //arch & _v; /**< complementary vector for use in vdcma. */
@@ -553,7 +551,7 @@ namespace libcmaes
     std::vector<Candidate> _candidates; /**< current set of candidate solutions. */
     std::vector<Candidate> _best_candidates_hist; /**< history of best candidate solutions. */
     int _max_hist = -1; /**< max size of the history, keeps memory requirements fixed. */
-    
+
     double _max_eigenv = 0.0; /**< max eigenvalue, for termination criteria. */
     double _min_eigenv = 0.0; /**< min eigenvalue, for termination criteria. */
     dVec _leigenvalues; /**< last computed eigenvalues, for termination criteria. */
@@ -564,7 +562,7 @@ namespace libcmaes
     std::vector<Candidate> _k_best_candidates_hist; /**< k-th best candidate history, for termination criteria, k is kcand=1+floor(0.1+lambda/4). */
     std::vector<double> _bfvalues; /**< best function values over the past 20 steps, for termination criteria. */
     std::vector<double> _median_fvalues; /**< median function values of some steps, in the past, for termination criteria. */
-    
+
     int _eigeniter = 0; /**< eigenvalues computation last step, lazy-update only. */
     bool _updated_eigen = true; /**< last update is not lazy. */
 
@@ -586,13 +584,13 @@ namespace libcmaes
     int _best_seen_iter;
     Candidate _worst_seen_candidate;
     Candidate _initial_candidate;
-    
+
     dVec _v; /**< complementary vector for use in vdcma. */
 
     std::vector<RankedCandidate> _candidates_uh; /**< temporary set of candidates used by uncertainty handling scheme. */
     int _lambda_reev; /**< number of reevaluated solutions at current step. */
     double _suh; /**< uncertainty level computed by uncertainty handling procedure. */
-    
+
     double _tpa_s = 0.0;
     int _tpa_p1 = 0;
     int _tpa_p2 = 1;
@@ -605,3 +603,5 @@ namespace libcmaes
 }
 
 #endif
+
+    //    arch & _max_eigenv; /**< max eigenvalue, for termination criteria. */
