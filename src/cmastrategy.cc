@@ -94,6 +94,9 @@ template <class TCovarianceUpdate, class TGenoPheno>
 CMAStrategy<TCovarianceUpdate,TGenoPheno>::CMAStrategy()
     :ESOStrategy<CMAParameters<TGenoPheno>,CMASolutions,CMAStopCriteria<TGenoPheno> >()
 {
+    eostrat<TGenoPheno>::_pfunc = _defaultPFunc;
+    eostrat<TGenoPheno>::_pffunc = _defaultFPFunc;
+
 }
 
 template <class TCovarianceUpdate, class TGenoPheno>
